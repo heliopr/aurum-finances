@@ -7,7 +7,7 @@ export default /*html*/`<p id="title">Aurum</p>
         <p>Criado por Hélio Procailo Recpzuk.</p>
     </div>
     <div>
-        <a id="github-a" href="https://github.com/heliopr"><img id="github" src="${githubLogo}">
+        <a id="github-a" href="https://github.com/heliopr/aurum-finances"><img id="github" src="${githubLogo}">
             <p>Código Fonte</p>
         </a>
     </div>
