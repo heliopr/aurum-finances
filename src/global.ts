@@ -2,6 +2,7 @@ import { isLoggedIn, setIsLoggedIn } from "./modules/session.ts";
 import headerHtml from "./components/header.ts";
 import footerHtml from "./components/footer.ts";
 import { confirmDialog } from "./modules/dialogs.ts";
+import { encryptData } from "./modules/storage.ts";
 
 
 const footer = document.querySelector("footer")!;
@@ -22,9 +23,11 @@ if (isLoggedIn()) {
 
 
 function sair() {
-    confirmDialog("Você tem certeza de que quer sair?").then(result => {
+    confirmDialog("Você tem certeza de que quer sair?").then(async (result) => {
         if (result.isConfirmed) {
             setIsLoggedIn(false);
+            await encryptData();
+
             window.location.reload();
         }
     });

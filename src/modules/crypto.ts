@@ -8,7 +8,7 @@ export function stringToBuffer(str: string) {
     return new TextEncoder().encode(str);
 }
 
-export function bufferToString(buffer: Uint8Array) {
+export function bufferToString(buffer: BufferSource) {
     return new TextDecoder().decode(buffer);
 }
 
@@ -29,8 +29,7 @@ export async function sha256Buffer(message: string) {
     return hashBuffer;
 }
 
-export async function encodeAESKey(key: string) {
-    const hash = await sha256Buffer(key);
+export async function encodeAESKey(hash: BufferSource) {
     return window.crypto.subtle.importKey(
         "raw",
         hash,
