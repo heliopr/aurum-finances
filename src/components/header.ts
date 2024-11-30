@@ -1,10 +1,11 @@
 import logoutIcon from "../assets/icons/logout.svg"
 import accountIcon from "../assets/icons/accounticon.svg"
+import logo128px from "../assets/logo128px.webp"
 
 const BASE_URL = import.meta.env.BASE_URL
 
 export default /*html*/`<div id="aurum">
-    <img id="logo" src="${BASE_URL}assets/logo128px.webp">
+    <img id="logo" src="${logo128px}">
     <h1 class="aurum-name">Aurum</h1>
 </div>
 <nav>
