@@ -10,7 +10,7 @@ export default /*html*/`<div id="aurum">
 </div>
 <nav>
     <a href="${BASE_URL}">Home</a>
-    <a href="${BASE_URL}financas/">Finanças</a>
+    <a id="financas" href="${BASE_URL}financas/">Finanças</a>
     <a href="${BASE_URL}sobre/">Sobre</a>
     <div id="buttons">
         <button id="entrar-button" onclick="window.location.href='${BASE_URL}entrar/'"><img src="${accountIcon}">Entrar</button>

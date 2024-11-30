@@ -12,9 +12,12 @@ footer.innerHTML = footerHtml;
 
 
 if (isLoggedIn()) {
-    (<HTMLElement>header.querySelector("#entrar-button"))!.classList.add("hidden");
+    header.querySelector("#entrar-button")!.classList.add("hidden");
 } else {
-    (<HTMLElement>header.querySelector("#sair-button"))!.classList.add("hidden");
+    header.querySelector("#sair-button")!.classList.add("hidden");
+    const e = (<HTMLAnchorElement>header.querySelector("#financas"))!;
+    e.removeAttribute("href");
+    e.classList.add("disabled")
 }
 
 
