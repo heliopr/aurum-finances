@@ -1,0 +1,14 @@
+const BASE_URL = import.meta.env.BASE_URL
+
+export default /*html*/`<p id="title">Aurum</p>
+<div id="section">
+    <div>
+        <p>Todos os direitos reservados.</p>
+        <p>Criado por Hélio Procailo Recpzuk.</p>
+    </div>
+    <div>
+        <a id="github-a" href="https://github.com/heliopr"><img id="github" src="${BASE_URL}assets/githublogo.svg">
+            <p>Código Fonte</p>
+        </a>
+    </div>
+</div>`
