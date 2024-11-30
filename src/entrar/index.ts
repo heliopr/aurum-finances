@@ -1,7 +1,7 @@
-import Swal from "sweetalert2";
 import { checkPassword, getStoredHash, storePassword } from "../modules/password";
 import { setIsLoggedIn } from "../modules/session";
 import { hideAll } from "../modules/util";
+import { errorDialog, successDialog } from "../modules/dialogs";
 
 const main = document.querySelector("main")!;
 const senhaInput = <HTMLInputElement>main.querySelector("#senha-input")!;
@@ -11,29 +11,12 @@ const criarButton = main.querySelector("#criar-button");
 async function entrar() {
     const senha = senhaInput.value;
     if (await checkPassword(senha)) {
-        await Swal.fire({
-            title: "Logado com sucesso!",
-            icon: "success",
-            buttonsStyling: false,
-            confirmButtonText: "Ok",
-            customClass: {
-                container: "dialog-button-gap",
-                denyButton: "button-secondary"
-            }
-        })
         setIsLoggedIn(true);
+
+        await successDialog("Logado com sucesso!");
         window.location.href = import.meta.env.BASE_URL;
     } else {
-        await Swal.fire({
-            title: "Senha inválida!",
-            icon: "error",
-            buttonsStyling: false,
-            confirmButtonText: "Ok",
-            customClass: {
-                container: "dialog-button-gap",
-                denyButton: "button-secondary"
-            }
-        })
+        await errorDialog("Senha inválida!");
         senhaInput.value = "";
     }
 }
@@ -43,16 +26,7 @@ async function criarSenha() {
     await storePassword(senha);
     setIsLoggedIn(true);
 
-    await Swal.fire({
-        title: "Senha criada com sucesso!",
-        icon: "success",
-        buttonsStyling: false,
-        confirmButtonText: "Ok",
-        customClass: {
-            container: "dialog-button-gap",
-            denyButton: "button-secondary"
-        }
-    })
+    await successDialog("Senha criada com sucesso!");
     window.location.href = import.meta.env.BASE_URL;
 }
 

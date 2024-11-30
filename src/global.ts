@@ -1,7 +1,7 @@
 import { isLoggedIn, setIsLoggedIn } from "./modules/session.ts";
 import headerHtml from "./components/header.ts";
 import footerHtml from "./components/footer.ts";
-import Swal from "sweetalert2";
+import { confirmDialog } from "./modules/dialogs.ts";
 
 
 const footer = document.querySelector("footer")!;
@@ -19,17 +19,7 @@ if (isLoggedIn()) {
 
 
 function sair() {
-    Swal.fire({
-        title: "Você tem certeza de que quer sair?",
-        showDenyButton: true,
-        buttonsStyling: false,
-        confirmButtonText: "Sim",
-        denyButtonText: "Não",
-        customClass: {
-            container: "dialog-button-gap",
-            denyButton: "button-secondary"
-        }
-    }).then(result => {
+    confirmDialog("Você tem certeza de que quer sair?").then(result => {
         if (result.isConfirmed) {
             setIsLoggedIn(false);
             window.location.reload();
