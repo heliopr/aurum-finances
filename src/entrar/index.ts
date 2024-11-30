@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { checkPassword, getStoredHash, storePassword } from "../modules/password";
 import { setIsLoggedIn } from "../modules/session";
 import { hideAll } from "../modules/util";
@@ -10,11 +11,29 @@ const criarButton = main.querySelector("#criar-button");
 async function entrar() {
     const senha = senhaInput.value;
     if (await checkPassword(senha)) {
-        alert("Logado com sucesso!");
+        await Swal.fire({
+            title: "Logado com sucesso!",
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok",
+            customClass: {
+                container: "dialog-button-gap",
+                denyButton: "button-secondary"
+            }
+        })
         setIsLoggedIn(true);
         window.location.href = import.meta.env.BASE_URL;
     } else {
-        alert("Senha incorreta!");
+        await Swal.fire({
+            title: "Senha inválida!",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok",
+            customClass: {
+                container: "dialog-button-gap",
+                denyButton: "button-secondary"
+            }
+        })
         senhaInput.value = "";
     }
 }
@@ -23,6 +42,17 @@ async function criarSenha() {
     const senha = senhaInput.value;
     await storePassword(senha);
     setIsLoggedIn(true);
+
+    await Swal.fire({
+        title: "Senha criada com sucesso!",
+        icon: "success",
+        buttonsStyling: false,
+        confirmButtonText: "Ok",
+        customClass: {
+            container: "dialog-button-gap",
+            denyButton: "button-secondary"
+        }
+    })
     window.location.href = import.meta.env.BASE_URL;
 }
 
