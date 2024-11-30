@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.BASE_URL
+import githubLogo from "../assets/githublogo.svg"
 
 export default /*html*/`<p id="title">Aurum</p>
 <div id="section">
@@ -7,7 +7,7 @@ export default /*html*/`<p id="title">Aurum</p>
         <p>Criado por Hélio Procailo Recpzuk.</p>
     </div>
     <div>
-        <a id="github-a" href="https://github.com/heliopr"><img id="github" src="${BASE_URL}assets/githublogo.svg">
+        <a id="github-a" href="https://github.com/heliopr"><img id="github" src="${githubLogo}">
             <p>Código Fonte</p>
         </a>
     </div>
