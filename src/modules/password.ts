@@ -8,6 +8,12 @@ export function getStoredHash(): string | null {
     return localStorage.getItem("hashedPassword");
 }
 
+export async function checkPassword(password: string) {
+    const stored = localStorage.getItem("hashedPassword");
+    const hashed = await hashPassword(password);
+    return stored === hashed;
+}
+
 export async function storePassword(newPassword: string) {
     const hashed = await hashPassword(newPassword);
     localStorage.setItem("hashedPassword", hashed);

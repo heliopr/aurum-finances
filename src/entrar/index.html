@@ -16,12 +16,12 @@
     <main>
         <div id="entrar">
             <h2><img src="/assets/icons/safe.svg">Entrar</h2>
-            <p id="entrar-p" class="big">Digite a sua senha para desbloquear as finanças</p>
-            <p id="criar-p" class="big">Você não tem uma senha cadastrada, crie uma para começar</p>
+            <p class="hasPassword" id="entrar-p" class="big">Digite a sua senha para desbloquear as finanças</p>
+            <p class="noPassword" id="criar-p" class="big">Você não tem uma senha cadastrada, crie uma para começar</p>
             <input id="senha-input" type="password">
             <div class="flex-row">
-                <button id="entrar-button"><img src="/assets/icons/lock.svg">Entrar</button>
-                <button id="criar-button"><img src="/assets/icons/key.svg">Criar Senha</button>
+                <button class="hasPassword" id="entrar-button"><img src="/assets/icons/lock.svg">Entrar</button>
+                <button class="noPassword" id="criar-button"><img src="/assets/icons/key.svg">Criar Senha</button>
             </div>
         </div>
     </main>
@@ -29,6 +29,7 @@
     <footer></footer>
 
     <script type="module" src="/global.ts"></script>
+    <script type="module" src="index.ts"></script>
 </body>
 
 </html>
