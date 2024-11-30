@@ -1,0 +1,45 @@
+@import "../globalstyle.less";
+
+main {
+    margin-top: 40px;
+    padding: 0 14%;
+    min-height: 400px;
+
+    @media only screen and (max-width: @mobile-width) {
+        padding: 0 50px;
+    }
+}
+
+#tabs {
+    .flex-row();
+    flex-wrap: wrap;
+    gap: 18px 30px;
+
+    a {
+        text-decoration: none;
+        color: black;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: @big-size;
+
+        img {
+            width: 24px;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .current {
+        color: rgb(127, 127, 127);
+        cursor: default;
+        pointer-events: none;
+
+        img {
+            /* yellow color */
+            filter: brightness(0) saturate(100%) invert(72%) sepia(47%) saturate(471%) hue-rotate(3deg) brightness(106%) contrast(84%);
+        }
+    }
+}

@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Text size declarations */
+@h1-size: 3.2em;
+@h2-size: 2.8em;
+@h3-size: 2.4em;
+@h4-size: 2em;
+@big-size: 1.4em;
+@p-size: 1.2em;
+@small-size: 1em;
+
+/* Colors */
+@gold1: rgb(238, 185, 53);
+@gold2: rgb(218, 165, 32);
+@gold3: rgb(190, 146, 34);
+
+@mobile-width: 800px;
+
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tags */
+h1 { font-size: @h1-size; }
+h2 { font-size: @h2-size; }
+h3 { font-size: @h3-size; }
+h4 { font-size: @h4-size; }
+p { font-size: @p-size; }
+button {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    font-family: "Inter", sans-serif;
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 6px;
+    background-color: @gold1;
+    font-weight: 500;
+    font-size: @p-size;
+    
+    transition: 0.2s;
+    &:hover {
+        background-color: @gold2;
+        cursor: pointer;
+    }
+
+    img {
+        width: 24px;
+    }
+}
+
+hr {
+    background-color: #dfdfdf;
+    border: 0 none;
+    color: #dfdfdf;
+    height: 2px;
+}
+
+.button-secondary {
+    background: transparent;
+    box-shadow: inset 0 0 0 3px @gold1;
+    &:hover {
+        background: transparent;
+        box-shadow: inset 0 0 0 3px @gold2;
+    }
+}
+
+/* Classes */
+.h1 { font-size: @h1-size; }
+.h2 { font-size: @h2-size; }
+.h3 { font-size: @h3-size; }
+.h4 { font-size: @h4-size; }
+.big { font-size: @big-size; }
+.small { font-size: @small-size; }
+
+.text-center { text-align: center; }
+.text-justify { text-align: justify; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.hidden {
+    display: none;
+}
+
+
+.aurum-name {
+    background-image: linear-gradient(@gold2, @gold3);
+    color: transparent;
+    background-clip: text;
+}
+
+
+
+header {
+    .flex-row();
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 16px 100px;
+
+    nav {
+        .flex-row();
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        a {
+            text-decoration: none;
+            font-size: @p-size;
+            color: black;
+
+            transition: 0.2s;
+            &:hover {
+                color: rgb(48, 48, 48);
+            }
+        }
+
+        #buttons {
+            .flex-row();
+            justify-content: center;
+            gap: 12px;
+            margin-left: 40px;
+
+            @media only screen and (max-width: @mobile-width) {
+                margin-left: 0;
+            }
+        }
+    }
+
+
+    #aurum {
+        .flex-row();
+        gap: 20px;
+
+        h1 {
+            font-size: @h3-size;
+        }
+
+        #logo {
+            width: 60px;
+        }
+    }
+
+
+    @media only screen and (max-width: @mobile-width) {
+        flex-direction: column;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+
+
+main {
+    margin-top: 60px;
+    margin-bottom: 150px;
+}
+
+
+
+footer {
+    background-color: rgb(233, 233, 233);
+    padding: 60px 10%;
+
+    #title {
+        font-size: @h3-size;
+        .aurum-name();
+        text-align: center;
+    }
+
+    #section {
+        .flex-row();
+        justify-content: space-around;
+    }
+
+    #github {
+        width: 80px;
+    }
+
+    #github-a {
+        .flex-column();
+        justify-content: center;
+        color: black;
+    }
+
+    @media only screen and (max-width: @mobile-width) {
+        #section {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,56 @@
+@import "./globalstyle.less";
+
+#hero {
+    .flex-column();
+    padding: 0 10%;
+    gap: 30px;
+
+    #title, #description {
+        margin: 0;
+    }
+
+    #description {
+        font-style: italic;
+    }
+
+    #logo {
+        width: 300px;
+
+        @media only screen and (max-width: @mobile-width) {
+            width: 160px;
+        }
+    }
+}
+
+
+
+#section1 {
+    .flex-row();
+    background-color: rgb(233, 233, 233);
+    margin: 100px 0;
+    padding: 80px 10%;
+    gap: 80px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .card {
+        flex: 1 1 0;
+        h3 {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            margin-top: 0;
+            margin-bottom: 10px;
+
+            img {
+                width: 40px;
+            }
+        }
+    }
+
+    @media only screen and (max-width: @mobile-width) {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
