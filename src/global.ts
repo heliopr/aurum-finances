@@ -28,7 +28,7 @@ function sair() {
             setIsLoggedIn(false);
             await encryptData();
 
-            window.location.reload();
+            window.location.href = import.meta.env.BASE_URL;
         }
     });
 }
