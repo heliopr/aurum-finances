@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
-import { Data, getData } from "../../modules/storage";
-import { getTransactionTypeName, TransactionData } from "../../modules/transactions";
+import { Data, getData, saveData } from "../../modules/storage";
+import { getTransactionTypeName, insertTransaction, TransactionData, TransactionType } from "../../modules/transactions";
 import { formatDate } from "../../modules/util";
 import { customValidationMessage } from "../../modules/dialogs";
 
@@ -24,7 +24,14 @@ function renderTransaction(transactionData: TransactionData) {
     return div;
 }
 
+function clearTransactions() {
+    for (const e of transactionsList.querySelectorAll(".transaction")) {
+        e.remove();
+    }
+}
+
 function renderTransactionsList() {
+    clearTransactions();
     for (const t of data.transactions) {
         const e = renderTransaction(t);
         transactionsList.appendChild(e);
@@ -60,20 +67,35 @@ function createTransactionPrompt() {
             cancelButton: "button-secondary",
             validationMessage: "custom-validation"
         },
+        didOpen: () => {
+            // set date input to current date
+            (<HTMLInputElement>document.getElementById("swal-input-date")!).valueAsDate = new Date();
+        },
         preConfirm: () => {
             const nameInput = (<HTMLInputElement>document.getElementById("swal-input-name")!).value;
             const valueInput = parseFloat((<HTMLInputElement>document.getElementById("swal-input-value")!).value);
             const typeInput = (<HTMLInputElement>document.getElementById("swal-input-type")!).value;
             const dateInput = (<HTMLInputElement>document.getElementById("swal-input-date")!).value;
 
+            const time = new Date(dateInput).getTime();
+
             if (nameInput.length < 2) customValidationMessage("Nome inválido!");
             if (isNaN(valueInput)) customValidationMessage("Valor inválido!");
-            if (isNaN(new Date(dateInput).getTime())) customValidationMessage("Data inválida!");
+            if (isNaN(time)) customValidationMessage("Data inválida!");
 
-            return [nameInput, valueInput, typeInput, dateInput];
+            return {
+                name: nameInput,
+                value: valueInput,
+                type: typeInput=="receita"?TransactionType.Revenue:TransactionType.Expense,
+                time: time
+            };
         }
     }).then(result => {
-        console.log(result.value);
+        if (result.isConfirmed) {
+            insertTransaction(data, result.value);
+            saveData(data);
+            renderTransactionsList();
+        }
     })
 }
 
