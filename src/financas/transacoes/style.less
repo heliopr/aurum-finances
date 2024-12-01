@@ -1,0 +1,68 @@
+@import "../../globalstyle.less";
+
+#lista-transacoes {
+    .item {
+        .flex-row();
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 6px 0;
+        gap: 6px 30px;
+
+        #nome {
+            flex: 3;
+        }
+
+        #bottom {
+            .flex-row();
+            gap: 30px;
+            flex: 3;
+
+            p {
+                flex: 1;
+            }
+        }
+
+        @media only screen and (max-width: @mobile-width) {
+            .flex-column();
+        }
+    }
+
+    #top {
+        padding: 16px 30px;
+        p {
+            .big();
+            font-weight: 500;
+            margin: 6px 0;
+        }
+    }
+
+    .transacao {
+        padding: 8px 30px;
+        border-radius: 4px;
+        border: 1px solid rgb(24, 24, 24);
+
+        #nome {
+            .big();
+            font-weight: 400;
+            margin: 0;
+        }
+
+        #data, #valor, #tipo {
+            .small();
+            margin: 0;
+        }
+
+        @media only screen and (max-width: @mobile-width) {
+            align-items: start;
+
+            #nome {
+                flex: 0;
+            }
+
+            #bottom {
+                flex: 0;
+                justify-content: left;
+            }
+        }
+    }
+}
