@@ -1,4 +1,11 @@
 import { bufferToString, decryptAES, encodeAESKey, encryptAES, sha256Buffer, stringToBuffer } from "./crypto";
+import { TransactionData } from "./transactions";
+
+export interface Data {
+    options: {};
+    lastTransactionIndex: number;
+    transactions: TransactionData[];
+}
 
 export function encodeBuffer(buffer: Uint8Array) {
     //return JSON.stringify(Array.from(buffer));

@@ -1,6 +1,6 @@
 @import "../../globalstyle.less";
 
-#lista-transacoes {
+#transactions {
     margin-top: 20px;
 
     .item {
@@ -10,7 +10,7 @@
         margin: 6px 0;
         gap: 6px 30px;
 
-        #nome {
+        #name {
             flex: 2;
         }
 
@@ -40,19 +40,19 @@
         }
     }
 
-    .transacao {
+    .transaction {
         padding: 8px 30px;
         border-radius: 4px;
         border: 1px solid rgb(24, 24, 24);
 
-        #nome {
+        #name {
             .small;
             text-decoration: underline;
             font-weight: 500;
             margin: 0;
         }
 
-        #data, #valor, #tipo {
+        #date, #value, #type {
             .small();
             margin: 0;
         }
@@ -60,7 +60,7 @@
         @media only screen and (max-width: @mobile-width) {
             align-items: start;
 
-            #nome {
+            #name {
                 flex: 0;
             }
 

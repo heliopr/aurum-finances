@@ -7,3 +7,4 @@ Trabalho final da disciplina de Desenvolvimento Web.
 - Vite
 - TypeScript
 - LessCSS
+- SweetAlert

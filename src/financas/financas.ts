@@ -1,11 +1,16 @@
 import walletIcon from "../assets/icons/walletgrad.svg";
 import filelistIcon from "../assets/icons/filelistgrad.svg";
 import settingsIcon from "../assets/icons/settingsgrad.svg";
+import { isLoggedIn } from "../modules/session";
 
 const main = document.querySelector("main")!;
 const navigation = main.querySelector("#navigation");
 
 const BASE_URL = import.meta.env.BASE_URL;
+
+if (!isLoggedIn()) {
+    window.location.href = import.meta.env.BASE_URL;
+}
 
 if (navigation) navigation.innerHTML = /*html*/`
     <div id="tabs">
