@@ -20,5 +20,5 @@ export function getTransactionTypeName(type: TransactionType): string {
 export function insertTransaction(data: Data, transaction: TransactionData) {
     data.lastTransactionIndex++;
     transaction.index = data.lastTransactionIndex;
-    data.transactions.push(transaction);
+    data.transactions.unshift(transaction);
 }

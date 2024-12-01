@@ -2,7 +2,7 @@ import { bufferToString, decryptAES, encodeAESKey, encryptAES, sha256Buffer, str
 import { TransactionData } from "./transactions";
 
 export interface Data {
-    options: {};
+    settings: {};
     lastTransactionIndex: number;
     transactions: TransactionData[];
 }
@@ -67,9 +67,10 @@ export function getData() {
     return JSON.parse(dataString);
 }
 
-export function defaultData() {
+export function defaultData(): Data {
     return {
         settings: {},
-        transactions: []
+        lastTransactionIndex: 0,
+        transactions: [],
     }
 }

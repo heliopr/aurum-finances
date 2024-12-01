@@ -80,7 +80,7 @@ function createTransactionPrompt() {
             const time = new Date(dateInput).getTime();
 
             if (nameInput.length < 2) customValidationMessage("Nome inválido!");
-            if (isNaN(valueInput)) customValidationMessage("Valor inválido!");
+            if (isNaN(valueInput) || valueInput < 0) customValidationMessage("Valor inválido!");
             if (isNaN(time)) customValidationMessage("Data inválida!");
 
             return {
