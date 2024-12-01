@@ -44,3 +44,7 @@ export function confirmDialog(title: string) {
         }
     });
 }
+
+export function customValidationMessage(text: string) {
+    Swal.showValidationMessage(/*html*/`<img src="${errorIcon}" width="25px"> ${text}`);
+}
