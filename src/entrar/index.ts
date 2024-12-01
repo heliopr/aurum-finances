@@ -17,7 +17,7 @@ async function entrar() {
         await decryptData(senha);
 
         await successDialog("Logado com sucesso!");
-        window.location.href = import.meta.env.BASE_URL;
+        window.location.href = `${import.meta.env.BASE_URL}financas/`;
     } else {
         await errorDialog("Senha inválida!");
         senhaInput.value = "";
@@ -33,7 +33,7 @@ async function criarSenha() {
     saveKey(new Uint8Array(await sha256Buffer(senha)));
 
     await successDialog("Senha criada com sucesso!");
-    window.location.href = import.meta.env.BASE_URL;
+    window.location.href = `${import.meta.env.BASE_URL}financas/`;
 }
 
 if (getStoredHash() === null) {

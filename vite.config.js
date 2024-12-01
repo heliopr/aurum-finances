@@ -16,7 +16,9 @@ export default defineConfig(({ mode }) => {
                     main: resolve(__dirname, "src/index.html"),
                     entrar: resolve(__dirname, "src/entrar/index.html"),
                     financas: resolve(__dirname, "src/financas/index.html"),
-                    sobre: resolve(__dirname, "src/sobre/index.html")
+                    sobre: resolve(__dirname, "src/sobre/index.html"),
+                    transacoes: resolve(__dirname, "src/financas/transacoes/index.html"),
+                    opcoes: resolve(__dirname, "src/financas/opcoes/index.html")
                 }
             }
         },

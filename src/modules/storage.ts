@@ -1,9 +1,5 @@
 import { bufferToString, decryptAES, encodeAESKey, encryptAES, sha256Buffer, stringToBuffer } from "./crypto";
 
-export function getData() {
-    return localStorage.getItem("data");
-}
-
 export function encodeBuffer(buffer: Uint8Array) {
     //return JSON.stringify(Array.from(buffer));
     let binary = '';
@@ -32,7 +28,7 @@ export function getKey() {
 }
 
 export async function encryptData() {
-    const data = getData();
+    const data = localStorage.getItem("data");
     if (!data) return;
     const cryptoKey = getKey();
     const encodedKey = await encodeAESKey(cryptoKey);
@@ -43,7 +39,7 @@ export async function encryptData() {
 }
 
 export async function decryptData(password: string) {
-    const data = getData();
+    const data = localStorage.getItem("data");
     if (!data) return;
     const cryptoKey = new Uint8Array(await sha256Buffer(password));
     saveKey(cryptoKey);
@@ -56,6 +52,12 @@ export async function decryptData(password: string) {
 
 export function saveData(newData: any) {
     localStorage.setItem("data", JSON.stringify(newData));
+}
+
+export function getData() {
+    const dataString = localStorage.getItem("data");
+    if (!dataString) return defaultData();
+    return JSON.parse(dataString);
 }
 
 export function defaultData() {
