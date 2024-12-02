@@ -3,5 +3,5 @@ export function hideAll(elements: NodeListOf<HTMLElement> | null) {
 }
 
 export function formatDate(date: Date) {
-    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 }

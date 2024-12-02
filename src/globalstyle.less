@@ -20,6 +20,7 @@ body {
     font-family: "Inter", sans-serif;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 
@@ -246,4 +247,22 @@ footer {
 
 .custom-validation img {
     margin-right: 10px;
+}
+
+
+
+@media only screen and (max-width: @mobile-width) {
+    .section-row {
+        .flex-column();
+        width: 90%;
+        padding: 30px;
+
+        img {
+            width: 90%;
+        }
+    }
+
+    .mobile-reverse {
+        flex-direction: column-reverse;
+    }
 }

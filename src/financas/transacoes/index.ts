@@ -77,6 +77,8 @@ function createTransactionPrompt() {
             const typeInput = (<HTMLInputElement>document.getElementById("swal-input-type")!).value;
             const dateInput = (<HTMLInputElement>document.getElementById("swal-input-date")!).value;
 
+            console.log(typeInput);
+
             const time = new Date(dateInput).getTime();
 
             if (nameInput.length < 2) customValidationMessage("Nome inválido!");
@@ -86,12 +88,13 @@ function createTransactionPrompt() {
             return {
                 name: nameInput,
                 value: valueInput,
-                type: typeInput=="receita"?TransactionType.Revenue:TransactionType.Expense,
-                time: time
+                type: typeInput=="revenue"?TransactionType.Revenue:TransactionType.Expense,
+                time: time+(3600000*3) // UTC to BRT conversion
             };
         }
     }).then(result => {
         if (result.isConfirmed) {
+            console.log(result.value);
             insertTransaction(data, result.value);
             saveData(data);
             renderTransactionsList();
