@@ -87,6 +87,23 @@ a.disabled {
 .text-right { text-align: right; }
 .text-left { text-align: left; }
 
+.section-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15%;
+}
+
+.section {
+    padding: 60px 10%;
+}
+
+.column {
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -212,6 +229,12 @@ footer {
     }
 }
 
+
+.section-image {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
 
 .dialog-button-gap .swal2-actions {
     gap: 20px;
