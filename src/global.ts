@@ -1,11 +1,5 @@
-
-
-import { gsap,ScrollTrigger } from "gsap/all";
-
-
-gsap.registerPlugin(ScrollTrigger);
-
-
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 import { isLoggedIn, setIsLoggedIn } from "./modules/session.ts";
 import headerHtml from "./components/header.ts";
 import footerHtml from "./components/footer.ts";
@@ -41,6 +35,7 @@ function sair() {
 header.querySelector("#sair-button")!.addEventListener("click", sair);
 
 
+gsap.registerPlugin(ScrollTrigger);
 gsap.from('#title', {
     opacity: 0,
     y: 65,
@@ -65,10 +60,10 @@ gsap.from('#logo', {
 });
 
 
-gsap.utils.toArray('.section-image').forEach(image => {
-    gsap.from(image as HTMLElement, {
+document.querySelectorAll(".section-image").forEach((image) => {
+    gsap.from(image, {
         scrollTrigger: {
-            trigger: image as HTMLElement,
+            trigger: image,
             start: "top 80%",
             markers: false,  
         },
@@ -79,10 +74,10 @@ gsap.utils.toArray('.section-image').forEach(image => {
 });
 
 
-gsap.utils.toArray('.card').forEach(card => {
-    gsap.from(card as HTMLElement, {
+document.querySelectorAll(".card").forEach((card) => {
+    gsap.from(card, {
         scrollTrigger: {
-            trigger: card as HTMLElement,
+            trigger: card,
             start: "top 80%",
             markers: false, 
         },
