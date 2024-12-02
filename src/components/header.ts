@@ -5,7 +5,7 @@ import logo128px from "../assets/logo128px.webp"
 const BASE_URL = import.meta.env.BASE_URL
 
 export default /*html*/`<div id="aurum">
-    <img id="logo" src="${logo128px}">
+    <img id="logo1" src="${logo128px}">
     <h1 class="aurum-name">Aurum</h1>
 </div>
 <nav>
