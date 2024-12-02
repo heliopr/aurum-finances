@@ -1,13 +1,24 @@
 import Swal from "sweetalert2";
 import { Data, getData, saveData } from "../../modules/storage";
-import { getTransactionTypeName, insertTransaction, TransactionData, TransactionType } from "../../modules/transactions";
+import { deleteTransaction, getTransactionTypeName, insertTransaction, TransactionData, TransactionType } from "../../modules/transactions";
 import { formatDate } from "../../modules/util";
-import { customValidationMessage } from "../../modules/dialogs";
+import { confirmDialog, customValidationMessage } from "../../modules/dialogs";
 
 const main = document.querySelector("main")!;
 const transactionsList = main.querySelector("#transactions")!;
+const excluirButton = main.querySelector("#excluir-button")!;
 
 const data: Data = getData();
+
+let selected = 0;
+
+function updateExcluirButton() {
+    if (selected > 0 && excluirButton.classList.contains("button-disabled")) {
+        excluirButton.classList.remove("button-disabled");
+    } else if (selected == 0 && !excluirButton.classList.contains("button-disabled")) {
+        excluirButton.classList.add("button-disabled");
+    }
+}
 
 function renderTransaction(transactionData: TransactionData) {
     const div = document.createElement("div");
@@ -30,9 +41,12 @@ function renderTransaction(transactionData: TransactionData) {
     function toggle() {
         if (checkbox.checked) {
             div.classList.add("selected");
+            selected += 1;
         } else {
             div.classList.remove("selected");
+            selected -= 1;
         }
+        updateExcluirButton();
     }
 
     div.addEventListener("click", (event) => {
@@ -45,6 +59,7 @@ function renderTransaction(transactionData: TransactionData) {
 
     checkbox.addEventListener("click", toggle);
 
+    if (transactionData.index) div.setAttribute("index", `${transactionData.index}`);
     return div;
 }
 
@@ -58,6 +73,9 @@ function clearTransactions() {
 
 function renderTransactionsList() {
     clearTransactions();
+    selected = 0;
+    updateExcluirButton();
+
     for (const t of data.transactions) {
         const e = renderTransaction(t);
         transactionsList.appendChild(e);
@@ -130,7 +148,27 @@ function createTransactionPrompt() {
 }
 
 
+function deleteTransactionsPrompt() {
+    if (selected == 0) return;
+
+    confirmDialog(`Você tem certeza de que quer excluir ${selected} transações?`).then((result) => {
+        if (result.isConfirmed) {
+            main.querySelectorAll(".selected").forEach((e) => {
+                const index = parseInt(e.getAttribute("index")!);
+                deleteTransaction(data, index);
+
+                e.classList.remove("selected");
+            });
+
+            saveData(data);
+            renderTransactionsList();
+        }
+    });
+}
+
+
 
 renderTransactionsList();
 
 main.querySelector("#criar-button")!.addEventListener("click", createTransactionPrompt);
+excluirButton.addEventListener("click", deleteTransactionsPrompt);

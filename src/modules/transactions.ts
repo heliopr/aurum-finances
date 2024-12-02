@@ -22,3 +22,7 @@ export function insertTransaction(data: Data, transaction: TransactionData) {
     transaction.index = data.lastTransactionIndex;
     data.transactions.unshift(transaction);
 }
+
+export function deleteTransaction(data: Data, index: number) {
+    data.transactions = data.transactions.filter((x) => x.index != index);
+}
