@@ -14,21 +14,47 @@ function renderTransaction(transactionData: TransactionData) {
     div.classList.add("item", "transaction");
 
     div.innerHTML = /*html*/`
-        <p id="name">${transactionData.name}</p>
+        <div id="top">
+            <input type="checkbox" id="checkbox">
+            <p id="name">${transactionData.name}</p>
+        </div>
         <div id="bottom">
             <p id="value">R$${transactionData.value}</p>
             <p id="type">${getTransactionTypeName(transactionData.type)}</p>
             <p id="date">${formatDate(new Date(transactionData.time))}</p>
         </div>
     `;
+
+    const checkbox = <HTMLInputElement>div.querySelector("#checkbox")!;
+
+    function toggle() {
+        if (checkbox.checked) {
+            div.classList.add("selected");
+        } else {
+            div.classList.remove("selected");
+        }
+    }
+
+    div.addEventListener("click", (event) => {
+        const target = <HTMLElement>event.target;
+        if (target.tagName !== "DIV") return;
+
+        checkbox.checked = !checkbox.checked;
+        toggle();
+    });
+
+    checkbox.addEventListener("click", toggle);
+
     return div;
 }
+
 
 function clearTransactions() {
     for (const e of transactionsList.querySelectorAll(".transaction")) {
         e.remove();
     }
 }
+
 
 function renderTransactionsList() {
     clearTransactions();
@@ -37,6 +63,7 @@ function renderTransactionsList() {
         transactionsList.appendChild(e);
     }
 }
+
 
 function createTransactionPrompt() {
     Swal.fire({
@@ -101,7 +128,6 @@ function createTransactionPrompt() {
         }
     })
 }
-
 
 
 
