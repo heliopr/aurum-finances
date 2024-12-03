@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { Data, getData, saveData } from "../../modules/storage";
 import { deleteTransaction, getTransactionTypeName, insertTransaction, TransactionData, TransactionType } from "../../modules/transactions";
-import { formatDate, UTCToBRT } from "../../modules/util";
+import { formatDate, toDateInputValue } from "../../modules/util";
 import { confirmDialog, customValidationMessage } from "../../modules/dialogs";
 
 const main = document.querySelector("main")!;
@@ -84,7 +84,7 @@ function validateForm() {
         name: nameInput,
         value: valueInput,
         type: typeInput == "revenue" ? TransactionType.Revenue : TransactionType.Expense,
-        time: UTCToBRT(time) // UTC to BRT conversion
+        time: time
     };
 }
 
@@ -145,7 +145,7 @@ function createTransactionPrompt() {
         },
         didOpen: () => {
             // set date input to current date
-            (<HTMLInputElement>document.getElementById("swal-input-date")!).valueAsDate = new Date();
+            (<HTMLInputElement>document.getElementById("swal-input-date")!).value = toDateInputValue(new Date());
         },
         preConfirm: () => {
             return validateForm();
