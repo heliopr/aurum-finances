@@ -29,10 +29,10 @@ export function errorDialog(title: string) {
     });
 }
 
-export function confirmDialog(title: string) {
+export function confirmDialog(title: string, customIcon?: string) {
     return Swal.fire({
         title: title,
-        imageUrl: questionIcon,
+        imageUrl: customIcon ? customIcon : questionIcon,
         imageWidth: 90,
         showDenyButton: true,
         buttonsStyling: false,
