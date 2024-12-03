@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import { Data, getData, saveData } from "../../modules/storage";
-import { deleteTransaction, getTransactionTypeName, insertTransaction, sortByCreation, sortByDate, sortByValue, TransactionData, TransactionType } from "../../modules/transactions";
+import { deleteTransaction, filterTransactions, getTransactionTypeName, insertTransaction, sortByCreation, sortByDate, sortByValue, TransactionData, TransactionType } from "../../modules/transactions";
 import { formatDate, toDateInputValue } from "../../modules/util";
 import { confirmDialog, customValidationMessage } from "../../modules/dialogs";
 
@@ -16,7 +16,13 @@ const data: Data = getData();
 let selected = 0;
 
 function sortTransactions(transactions: TransactionData[]) {
-    switch (sortSelect.value) {
+    const filter = filterSelect.value;
+    const sortBy = sortSelect.value;
+
+    if (filter !== "all")
+        transactions = filterTransactions(transactions, filter);
+
+    switch (sortBy) {
         case "creation-desc":
             transactions = sortByCreation(transactions, true);
             break;
