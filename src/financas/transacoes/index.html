@@ -17,7 +17,25 @@
     <main>
         <div id="navigation"></div>
 
-        <p>Clique no nome para editar</p>
+        <div id="filters">
+            <label for="filter-select">Filtrar:</label>
+            <select id="filter-select">
+                <option value="all">Todos</option>
+                <option value="revenues">Receitas</option>
+                <option value="expenses">Despesas</option>
+            </select>
+
+            <label for="sort-select">Ordenar por:</label>
+            <select id="sort-select">
+                <option value="creation-desc">Criação desc.</option>
+                <option value="creation-asc">Criação asc.</option>
+                <option value="date-desc">Data desc.</option>
+                <option value="date-asc">Data asc.</option>
+                <option value="value-desc">Valor desc.</option>
+                <option value="value-asc">Valor asc.</option>
+            </select>
+        </div>
+
         <div id="buttons">
             <button id="criar-button">Criar Transação</button>
             <button id="excluir-button" class="button-disabled">Excluir</button>

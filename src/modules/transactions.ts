@@ -26,3 +26,15 @@ export function insertTransaction(data: Data, transaction: TransactionData) {
 export function deleteTransaction(data: Data, index: number) {
     data.transactions = data.transactions.filter((x) => x.index != index);
 }
+
+export function sortByDate(transactions: TransactionData[], invert: boolean = false) {
+    return [...transactions].sort((a, b) => a.time - b.time * (invert ? -1 : 1));
+}
+
+export function sortByValue(transactions: TransactionData[], invert: boolean = false) {
+    return [...transactions].sort((a, b) => a.value - b.value * (invert ? -1 : 1));
+}
+
+export function sortByCreation(transactions: TransactionData[], invert: boolean = false) {
+    return [...transactions].sort((a, b) => a.index! - b.index! * (invert ? -1 : 1));
+}

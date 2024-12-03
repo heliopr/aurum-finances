@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import { Data, getData, saveData } from "../../modules/storage";
-import { deleteTransaction, getTransactionTypeName, insertTransaction, TransactionData, TransactionType } from "../../modules/transactions";
+import { deleteTransaction, getTransactionTypeName, insertTransaction, sortByCreation, sortByDate, sortByValue, TransactionData, TransactionType } from "../../modules/transactions";
 import { formatDate, toDateInputValue } from "../../modules/util";
 import { confirmDialog, customValidationMessage } from "../../modules/dialogs";
 
@@ -8,10 +8,37 @@ const main = document.querySelector("main")!;
 const transactionsList = main.querySelector("#transactions")!;
 const excluirButton = main.querySelector("#excluir-button")!;
 const nenhumaP = main.querySelector("#nenhuma-p")!;
+const sortSelect = <HTMLInputElement>main.querySelector("#sort-select")!;
+const filterSelect = <HTMLInputElement>main.querySelector("#filter-select")!;
 
 const data: Data = getData();
 
 let selected = 0;
+
+function sortTransactions(transactions: TransactionData[]) {
+    switch (sortSelect.value) {
+        case "creation-desc":
+            transactions = sortByCreation(transactions, true);
+            break;
+        case "creation-asc":
+            transactions = sortByCreation(transactions);
+            break;
+        case "date-desc":
+            transactions = sortByDate(transactions, true);
+            break;
+        case "date-asc":
+            transactions = sortByDate(transactions);
+            break;
+        case "value-desc":
+            transactions = sortByValue(transactions, true);
+            break;
+        case "value-asc":
+            transactions = sortByValue(transactions);
+            break;
+    }
+
+    return transactions;
+}
 
 function updateExcluirButton() {
     if (selected > 0 && excluirButton.classList.contains("button-disabled")) {
@@ -102,7 +129,9 @@ function renderTransactionsList() {
     updateExcluirButton();
 
     if (data.transactions.length > 0) {
-        for (const t of data.transactions) {
+        const transactions = sortTransactions(data.transactions);
+
+        for (const t of transactions) {
             const e = renderTransaction(t);
             transactionsList.appendChild(e);
         }
@@ -238,3 +267,6 @@ renderTransactionsList();
 
 main.querySelector("#criar-button")!.addEventListener("click", createTransactionPrompt);
 excluirButton.addEventListener("click", deleteTransactionsPrompt);
+
+filterSelect.addEventListener("input", renderTransactionsList);
+sortSelect.addEventListener("input", renderTransactionsList);
