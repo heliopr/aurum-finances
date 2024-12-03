@@ -1,12 +1,13 @@
 import Swal from "sweetalert2";
 import { Data, getData, saveData } from "../../modules/storage";
 import { deleteTransaction, getTransactionTypeName, insertTransaction, TransactionData, TransactionType } from "../../modules/transactions";
-import { formatDate } from "../../modules/util";
+import { formatDate, UTCToBRT } from "../../modules/util";
 import { confirmDialog, customValidationMessage } from "../../modules/dialogs";
 
 const main = document.querySelector("main")!;
 const transactionsList = main.querySelector("#transactions")!;
 const excluirButton = main.querySelector("#excluir-button")!;
+const nenhumaP = main.querySelector("#nenhuma-p")!;
 
 const data: Data = getData();
 
@@ -51,7 +52,10 @@ function renderTransaction(transactionData: TransactionData) {
 
     div.addEventListener("click", (event) => {
         const target = <HTMLElement>event.target;
-        if (target.tagName !== "DIV") return;
+        if (target.tagName !== "DIV") {
+            if (target.id === "name") editTransactionPrompt(transactionData);
+            return;
+        }
 
         checkbox.checked = !checkbox.checked;
         toggle();
@@ -61,6 +65,27 @@ function renderTransaction(transactionData: TransactionData) {
 
     if (transactionData.index) div.setAttribute("index", `${transactionData.index}`);
     return div;
+}
+
+
+function validateForm() {
+    const nameInput = (<HTMLInputElement>document.getElementById("swal-input-name")!).value;
+    const valueInput = parseFloat((<HTMLInputElement>document.getElementById("swal-input-value")!).value);
+    const typeInput = (<HTMLInputElement>document.getElementById("swal-input-type")!).value;
+    const dateInput = (<HTMLInputElement>document.getElementById("swal-input-date")!).value;
+
+    const time = new Date(dateInput).getTime();
+
+    if (nameInput.length < 2) customValidationMessage("Nome inválido!");
+    if (isNaN(valueInput) || valueInput < 0) customValidationMessage("Valor inválido!");
+    if (isNaN(time)) customValidationMessage("Data inválida!");
+
+    return {
+        name: nameInput,
+        value: valueInput,
+        type: typeInput == "revenue" ? TransactionType.Revenue : TransactionType.Expense,
+        time: UTCToBRT(time) // UTC to BRT conversion
+    };
 }
 
 
@@ -76,9 +101,15 @@ function renderTransactionsList() {
     selected = 0;
     updateExcluirButton();
 
-    for (const t of data.transactions) {
-        const e = renderTransaction(t);
-        transactionsList.appendChild(e);
+    if (data.transactions.length > 0) {
+        for (const t of data.transactions) {
+            const e = renderTransaction(t);
+            transactionsList.appendChild(e);
+        }
+
+        nenhumaP.classList.add("hidden");
+    } else {
+        nenhumaP.classList.remove("hidden");
     }
 }
 
@@ -117,25 +148,7 @@ function createTransactionPrompt() {
             (<HTMLInputElement>document.getElementById("swal-input-date")!).valueAsDate = new Date();
         },
         preConfirm: () => {
-            const nameInput = (<HTMLInputElement>document.getElementById("swal-input-name")!).value;
-            const valueInput = parseFloat((<HTMLInputElement>document.getElementById("swal-input-value")!).value);
-            const typeInput = (<HTMLInputElement>document.getElementById("swal-input-type")!).value;
-            const dateInput = (<HTMLInputElement>document.getElementById("swal-input-date")!).value;
-
-            console.log(typeInput);
-
-            const time = new Date(dateInput).getTime();
-
-            if (nameInput.length < 2) customValidationMessage("Nome inválido!");
-            if (isNaN(valueInput) || valueInput < 0) customValidationMessage("Valor inválido!");
-            if (isNaN(time)) customValidationMessage("Data inválida!");
-
-            return {
-                name: nameInput,
-                value: valueInput,
-                type: typeInput=="revenue"?TransactionType.Revenue:TransactionType.Expense,
-                time: time+(3600000*3) // UTC to BRT conversion
-            };
+            return validateForm();
         }
     }).then(result => {
         if (result.isConfirmed) {
@@ -145,6 +158,59 @@ function createTransactionPrompt() {
             renderTransactionsList();
         }
     })
+}
+
+
+function editTransactionPrompt(transactionData: TransactionData) {
+    Swal.fire({
+        title: "Editar Transação",
+        showCancelButton: true,
+        confirmButtonText: "Salvar",
+        cancelButtonText: "Cancelar",
+        buttonsStyling: false,
+        focusConfirm: false,
+        html: /*html*/`
+            <label for="swal-input-name">Nome:</label>
+            <input id="swal-input-name" autocomplete="off" type="text">
+            <br>
+            <label for="swal-input-type">Tipo:</label>
+            <select id="swal-input-type">
+                <option value="revenue">Receita</option>
+                <option value="expense">Despesa</option>
+            </select>
+            <br>
+            <label for="swal-input-value">Valor:</label>
+            <input id="swal-input-value" autocomplete="off" type="text">
+            <br>
+            <label for="swal-input-date">Data:</label>
+            <input id="swal-input-date" type="date">
+        `,
+        customClass: {
+            container: "dialog-button-gap create-transaction-prompt",
+            cancelButton: "button-secondary",
+            validationMessage: "custom-validation"
+        },
+        didOpen: () => {
+            // set date input to current date
+            (<HTMLInputElement>document.getElementById("swal-input-name")!).value = transactionData.name;
+            (<HTMLInputElement>document.getElementById("swal-input-value")!).value = transactionData.value.toString();
+            (<HTMLInputElement>document.getElementById("swal-input-type")!).value = transactionData.value==TransactionType.Revenue?"revenue":"expense";
+            (<HTMLInputElement>document.getElementById("swal-input-date")!).valueAsDate = new Date(transactionData.time);
+        },
+        preConfirm: () => {
+            return validateForm();
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const newTransaction: TransactionData = result.value;
+            transactionData.name = newTransaction.name;
+            transactionData.value = newTransaction.value;
+            transactionData.type = newTransaction.type;
+            transactionData.time = newTransaction.time;
+            saveData(data);
+            renderTransactionsList();
+        }
+    });
 }
 
 
