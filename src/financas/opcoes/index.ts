@@ -30,7 +30,7 @@ importarButton.addEventListener("click", () => {
     const input = document.createElement("input");
     input.type = "file";
 
-    input.onchange = (e: any) => {
+    input.onchange = () => {
         const reader = new FileReader();
         reader.onload = function () {
             const text = reader.result! as string;
