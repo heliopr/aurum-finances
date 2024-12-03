@@ -1,4 +1,4 @@
-import { confirmDialog, successDialog } from "../../modules/dialogs";
+import { confirmDialog, errorDialog, successDialog } from "../../modules/dialogs";
 import errorIcon from "../../assets/icons/errorgrad.svg";
 import { getData } from "../../modules/storage";
 import { downloadBlob } from "../../modules/util";
@@ -34,8 +34,13 @@ importarButton.addEventListener("click", () => {
         const reader = new FileReader();
         reader.onload = function () {
             const text = reader.result! as string;
-            localStorage.setItem("data", text);
-            successDialog("Dados carregados!");
+            try {
+                JSON.parse(text);
+                localStorage.setItem("data", text);
+                successDialog("Dados carregados!");
+            } catch (e) {
+                errorDialog("Dados inválidos!");
+            }
         };
         reader.readAsText(input.files![0]);
     }

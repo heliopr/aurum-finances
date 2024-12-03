@@ -1,4 +1,5 @@
 import { Data } from "./storage";
+import { getMonthDiff } from "./util";
 
 export enum TransactionType {
     Revenue = 1,
@@ -30,6 +31,29 @@ export function filterTransactions(transactions: TransactionData[], filter: stri
 
 export function deleteTransaction(data: Data, index: number) {
     data.transactions = data.transactions.filter((x) => x.index != index);
+}
+
+export function filterLastXMonths(transactions: TransactionData[], numMonths: number) {
+    const current = new Date();
+
+    return transactions.filter(t => {
+        const date = new Date(t.time);
+        if (date.getDate() == 1) date.setDate(2);
+        const monthDiff = getMonthDiff(current, date);
+        return monthDiff < numMonths;
+    });
+}
+
+export function aggregateTransactionsByMonth(transactions: TransactionData[], numMonths: number) {
+    const current = new Date();
+    const res = new Array(numMonths).fill(0);
+
+    transactions.forEach(t => {
+        const date = new Date(t.time);
+        res[numMonths - getMonthDiff(current, date) - 1] += t.value;
+    })
+
+    return res
 }
 
 export function sortByDate(transactions: TransactionData[], invert: boolean = false) {

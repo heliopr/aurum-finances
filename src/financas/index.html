@@ -7,6 +7,7 @@
     <title>Aurum | Finanças</title>
     <link rel="stylesheet" href="/globalstyle.less">
     <link rel="stylesheet" href="financas.less">
+    <link rel="stylesheet" href="style.less">
 </head>
 <body>
     <header></header>
@@ -14,11 +15,34 @@
     <main>
         <div id="navigation"></div>
 
+        <div id="charts">
+            <div id="row1">
+                <div id="chart1" class="chart">
+                    <h3>Gastos</h3>
+                    <div class="chart-container">
+                        <canvas style="height: 100%; width: 100%;"></canvas>
+                    </div>
+                </div>
+                <div id="chart2" class="chart">
+                    <h3>Ganhos</h3>
+                    <div class="chart-container">
+                        <canvas style="height: 100%; width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!--div class="chart">
+                <h3>Gastos</h3>
+                <div id="chart1-container">
+                    <canvas class="chart"></canvas>
+                </div>
+            </div-->
+        </div>
     </main>
 
     <footer></footer>
 
     <script type="module" src="/global.ts"></script>
     <script type="module" src="financas.ts"></script>
+    <script type="module" src="index.ts"></script>
 </body>
 </html>

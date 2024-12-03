@@ -41,3 +41,21 @@ export function downloadBlob(blob: Blob, name: string = "file.txt") {
         link.remove();
     }, 100);
 }
+
+const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+export function getLastXMonthsLabels(numMonths: number) {
+    const current = new Date();
+
+    let cont = current.getMonth();
+    let list = [];
+    for (let i = 0; i < numMonths; i++) {
+        list.unshift(months[cont]);
+        cont--;
+        if (cont < 0) cont = months.length-1;
+    }
+    return list;
+}
+
+export function getMonthDiff(current: Date, date: Date) {
+    return current.getMonth() - date.getMonth() + (12 * (current.getFullYear() - date.getFullYear()));
+}
