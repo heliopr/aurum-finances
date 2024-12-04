@@ -10,7 +10,9 @@ const gastosChart = new Chart(<ChartItem>document.querySelector("#chart1 canvas"
         datasets: [{
             label: 'R$ gastos',
             data: [],
-            borderWidth: 1
+            borderWidth: 1,
+            backgroundColor: "rgb(238, 185, 53, 0.8)",
+            borderColor: "rgb(131, 99, 19)"
         }]
     }
 });
@@ -22,7 +24,9 @@ const ganhosChart = new Chart(<ChartItem>document.querySelector("#chart2 canvas"
         datasets: [{
             label: 'R$ ganhos',
             data: [],
-            borderWidth: 1
+            borderWidth: 1,
+            backgroundColor: "rgb(238, 185, 53, 0.8)",
+            borderColor: "rgb(131, 99, 19)"
         }]
     }
 });
