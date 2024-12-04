@@ -4,6 +4,7 @@ import { aggregateTransactions, aggregateTransactionsByMonth, filterLastXMonths,
 import { getLastXMonthsLabels } from "../modules/util";
 
 const main = document.querySelector("main")!;
+const title = main.querySelector("#title")!;
 const gastosDisplay = main.querySelector("#gastos-display")!;
 const ganhosDisplay = main.querySelector("#ganhos-display")!;
 const diffDisplay = main.querySelector("#diff-display")!;
@@ -46,6 +47,8 @@ const ganhosChart = new Chart(<ChartItem>document.querySelector("#chart2 canvas"
 const data: Data = getData();
 
 function updateInfo() {
+    title.textContent = `Mês de ${getLastXMonthsLabels(1)[0]}`
+
     const transactions = filterLastXMonths(data.transactions, 1);
 
     const ganhosMes = aggregateTransactions(transactions.filter(x => x.type == TransactionType.Revenue));
