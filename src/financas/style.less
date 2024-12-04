@@ -1,5 +1,18 @@
 @import "../globalstyle.less";
 
+#info {
+    #container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+
+    @media only screen and (max-width: @mobile-width) {
+        #container {
+            display: block;
+        }
+    }
+}
+
 #charts {
     .chart {
         .chart-container {
@@ -16,23 +29,26 @@
     #row1 {
         .flex-row();
         justify-content: space-between;
-        gap: 50px;
+        gap: 0 50px;
     }
 
-    #row2 {
-        .flex-row();
-        margin-top: 50px;
-        gap: 50px;
-        justify-content: space-between;
+    #row1 h3 {
+        margin-bottom: 12px;
     }
 
     @media only screen and (max-width: @mobile-width) {
-        #row1, #row2 {
+        #row1 {
             flex-direction: column;
         }
 
         .chart {
             width: 95%;
+        }
+
+        #chart1, #chart2 {
+            .chart-container {
+                height: 60vw;
+            }
         }
     }
 }
@@ -45,11 +61,6 @@
 #chart2 {
     /*background-color: green;*/
     width: 45%;
-}
-
-#chart3 {
-    /*background-color: blue;*/
-    width: 40%;
 }
 
 .chart-container {

@@ -56,6 +56,14 @@ export function aggregateTransactionsByMonth(transactions: TransactionData[], nu
     return res
 }
 
+export function aggregateTransactions(transactions: TransactionData[]) {
+    let s = 0;
+    transactions.forEach(x => {
+        s += x.value;
+    })
+    return s;
+}
+
 export function sortByDate(transactions: TransactionData[], invert: boolean = false) {
     return [...transactions].sort((a, b) => (a.time - b.time) * (invert ? -1 : 1));
 }
