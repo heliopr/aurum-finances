@@ -229,7 +229,7 @@ function editTransactionPrompt(transactionData: TransactionData) {
             // set date input to current date
             (<HTMLInputElement>document.getElementById("swal-input-name")!).value = transactionData.name;
             (<HTMLInputElement>document.getElementById("swal-input-value")!).value = transactionData.value.toString();
-            (<HTMLInputElement>document.getElementById("swal-input-type")!).value = transactionData.value==TransactionType.Revenue?"revenue":"expense";
+            (<HTMLInputElement>document.getElementById("swal-input-type")!).value = transactionData.type==TransactionType.Revenue?"revenue":"expense";
             (<HTMLInputElement>document.getElementById("swal-input-date")!).valueAsDate = new Date(transactionData.time);
         },
         preConfirm: () => {
